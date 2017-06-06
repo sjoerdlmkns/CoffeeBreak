@@ -1,0 +1,59 @@
+﻿@using System.Diagnostics.Eventing.Reader
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoffeeBreak</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("CoffeeBreak", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+        @if (Session["LoggedInUser"] == null)
+        {
+            <div class="navbar-collapse collapse">
+
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Login", "Index", "Login")</li>
+                    <li>@Html.ActionLink("Sign up", "Index", "Signup")</li>
+                </ul>
+            </div>
+        }
+        else
+        {
+            <div class="navbar-collapse collapse">
+
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Friends", "", "")</li>
+                    <li>@Html.ActionLink("Messages", "", "")</li>
+                    <li>@Html.ActionLink("Profile", "", "")</li>
+                    <li>@Html.ActionLink("Upload", "NewPost", "Post")</li>
+                    <li>@Html.ActionLink("Logout", "Logout", "Login")</li>
+                </ul>
+            </div>
+        }
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>CoffeeBreak&copy; - Serving the best memes since 2017.</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

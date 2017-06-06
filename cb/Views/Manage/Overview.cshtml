@@ -1,0 +1,116 @@
+﻿@using cb.Models
+
+@{
+    ViewBag.Title = "Overview";
+}
+
+<h2>Management Dashboard</h2>
+
+<div class="row">
+    <div class="col-md-2">
+        <h3>BadWords</h3>
+        <table class="table table-sm">
+            <thead>
+            <tr>
+                <th>Word</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (string word in ViewBag.badWords)
+            {
+                <tr>
+                    <td>@word</td>
+                    <td>
+                        <form action="/Manage/OverviewRemoveBadWord/@word" method="GET">
+                            <button type="submit" class="btn btn-danger">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+
+        <div class="input-group">
+            <form action="/Manage/OverviewAddBadWord" method="POST">
+                <input type="text" class="form-control" name="word">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-primary">Add</button> 
+                    <br>
+                </span>
+            </form>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <h3>Users</h3>
+        <table class="table table-sm">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Username</th>
+                <th>Gender</th>
+                <th>Manager</th>
+            </tr>
+            </thead>
+            <tbody>
+            
+            @foreach (User user in ViewBag.users)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.Username</td>
+                    <td>@user.Gender</td>
+                    <td>@user.IsManager</td>
+                    <td>
+                        <form action="" method="GET">
+                            <button type="submit" class="btn btn-danger">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-md-6">
+        <h3>Posts</h3>
+        <table class="table table-sm">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>User</th>
+                <th>Titel</th>
+            </tr>
+            </thead>
+            <tbody>
+                @foreach (Post post in ViewBag.posts)
+            {
+                    <tr>
+                        <td>@post.Id</td>
+                        <td>@post.User.Username</td>
+                        <td>@post.Titel</td>
+                        <td>
+                            <form action="" method="GET">
+                                <button type="submit" class="btn btn-primary">
+                                    <span class="glyphicon glyphicon-eye-open"></span>
+                                </button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="" method="GET">
+                                <button type="submit" class="btn btn-danger">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
