@@ -15,33 +15,67 @@
                     <img src="data:image/jpeg;base64,@ViewBag.post.Image" width="100%"/>
                 </div>
                 <p>@ViewBag.post.Score beans - 11 comments</p>
-            
-
+      
         </div>
         <div class="col-sm-4"></div>
     </div>
     
-    <div class="row">
+    <!-- Comment plaatsen -->
+    @if (ViewBag.User != null)
+    {
+        <!-- Comments header -->
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-4">
+                <h3>Place a comment:</h3>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+
+    <div class="row" style="margin-top: 10px; margin-bottom: 10px;">
         <div class="col-sm-3"></div>
         <div class="col-sm-4">
             <div class="row">
-                <div class="col-sm-12">
-                    <textarea rows="4" cols="50">
-                </textarea>
+                <div class="col-sm-9">
+                    <textarea rows="4" cols="100"></textarea>
                 </div>
-            </div>
-            <div class="row"></div>
-            <div class="row">
                 <div class="col-sm-3">
-                    Username
+                    <button type="button" class="btn btn-primary" style="margin-top: 17px">Post</button>
                 </div>
-                <div class="col-sm-3"></div>
-                <div class="col-sm-3">
-                    <button type="button" class="btn btn-primary">Primary</button>
-                </div>
-
             </div>
         </div>
-        <div class="col-sm-4"></div>
     </div>
+    }
+    
+    
+   
+    <!-- Comments header -->
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-4">
+            <h3>Comments</h3>
+        </div>
+        <div class="col-sm-3"></div>
+    </div>
+
+    <!-- Comments inladen -->
+    <div class="row" style="margin-top: 10px; margin-bottom: 10px;">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-4">
+            <div class="row">
+                <div class="col-sm-3">
+                    <img src="https://www.w3schools.com/bootstrap/cinqueterre.jpg" class="img-circle" alt="Cinque Terre" height="90%" width="100%"/>
+                </div>
+                <div class="col-sm-9">
+                    <div class="container-fluid" style="border: 1px solid #cecece; word-wrap: break-word;">
+                        <p>Dit is een commenasdfasdfsdfsafasdfasdfasdfsadfsadfsadfsadfsadfsadfsdft</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">Username</div>
+            </div>
+        </div>
+    </div>
+
 </div>

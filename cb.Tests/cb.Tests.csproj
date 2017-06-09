@@ -83,6 +83,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
+    <Compile Include="TestComment.cs" />
     <Compile Include="TestMessage.cs" />
     <Compile Include="TestPost.cs" />
     <Compile Include="TestUser.cs" />

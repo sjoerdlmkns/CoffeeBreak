@@ -98,6 +98,38 @@ namespace cb.DAL.Contexts
             }
         }
 
+        public List<User> GetFriendsByUserId(int id)
+        {
+            var returnList = new List<User>();
+            try
+            {
+                SqlConnection con = new SqlConnection(Env.ConnectionString);
+
+                con.Open();
+                var cmdString = "SELECT * FROM [User] u WHERE u.id = (SELECT CASE WHEN r.friend_one = @id THEN friend_two WHEN r.friend_two = @id THEN friend_one END AS userid FROM Relation r)";
+                var command = new SqlCommand(cmdString, con);
+                command.Parameters.AddWithValue("@id", id);
+                var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    User user = new User(
+                        reader.GetInt32(0)
+                    );
+
+                    returnList.Add(user);
+                }
+                con.Close();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return returnList;
+        }
+
         public User GetUserById(int userid)
         {
             User returnUser = null;

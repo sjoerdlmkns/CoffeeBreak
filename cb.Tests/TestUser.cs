@@ -68,5 +68,16 @@ namespace cb.Tests
             
             ur.CreateUser(user);
         }
+
+        [TestMethod]
+        public void GetFriends()
+        {
+            UserSqlContext context = new UserSqlContext();
+            UserRepository ur = new UserRepository(context);
+
+            List<User> friends = ur.GetFriendsByUserId(1);
+
+            Assert.AreEqual(1002, friends[0].Id);
+        }
     }
 }

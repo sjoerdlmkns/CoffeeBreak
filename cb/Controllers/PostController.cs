@@ -50,7 +50,7 @@ namespace cb.Controllers
                     file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
                     string image = Convert.ToBase64String(fileBytes);
 
-                UserSqlContext ucontext = new UserSqlContext();
+                    UserSqlContext ucontext = new UserSqlContext();
                     UserRepository urepo = new UserRepository(ucontext);
 
                     User user = urepo.GetGebruikerById(Convert.ToInt32(Session["LoggedInUser"]));
@@ -74,6 +74,20 @@ namespace cb.Controllers
         [HttpGet]
         public ActionResult PostPage(int id)
         {
+            if (Session["LoggedInUser"] != null)
+            {
+                UserSqlContext ucontext = new UserSqlContext();
+                UserRepository urepo = new UserRepository(ucontext);
+
+                User user = urepo.GetGebruikerById(Convert.ToInt32(Session["LoggedInUser"]));
+
+                ViewBag.user = user;
+            }
+            else
+            {
+                ViewBag.user = null;
+            }
+
             PostSqlContext pcontext = new PostSqlContext();
             PostRepository pr = new PostRepository(pcontext);
 

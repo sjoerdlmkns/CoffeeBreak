@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Text;
 using cb.Dal;
@@ -116,6 +117,66 @@ namespace cb.DAL.Contexts
             {
                 throw ex;
             }
+        }
+
+        public List<Post> GetTrendingPosts(int userid)
+        {
+            List<Post> posts = new List<Post>();
+
+            var friends = new DataTable();
+            friends.Columns.Add("friendid", typeof(int));
+
+            var context = new UserSqlContext();
+            var ur = new UserRepository(context);
+
+            var friendlist = new List<User>();
+            friendlist = ur.GetFriendsByUserId(userid);
+
+            foreach (var user in friendlist)
+            {
+                friends.Rows.Add(user.Id);
+            }
+
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Env.ConnectionString))
+                {
+                    con.Open();
+                    var cmd = new SqlCommand("spGetTrendingPosts", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    var tvparam = cmd.Parameters.AddWithValue("@Friends", friends);
+                    tvparam.SqlDbType = SqlDbType.Structured;
+
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        //Get User by id
+                        User user = ur.GetGebruikerById(reader.GetInt32(2));
+
+
+                      var  post = new Post(
+                            reader.GetInt32(0), //ID
+                            user, //User
+                            reader.GetString(1), //Titel
+                            Category.Classic, //Category
+                            reader.GetDateTime(3), //Creatindate
+                            reader.GetInt32(4), //Score
+                            reader.GetString(6));
+
+                        posts.Add(post);
+                    }
+
+                    con.Close();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+            return posts;
         }
     }
 }

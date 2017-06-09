@@ -31,5 +31,10 @@ namespace cb.Models
             Password = password; 
             Gender = gender;
         }
+
+        public User(int id)
+        {
+            Id = id;
+        }
     }
 }

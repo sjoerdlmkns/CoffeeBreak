@@ -38,5 +38,10 @@ namespace cb.DAL.Repositories
         {
             return _context.GetUserIdByUsername(username);
         }
+
+        public List<User> GetFriendsByUserId(int id)
+        {
+            return _context.GetFriendsByUserId(id);
+        }
     }
 }

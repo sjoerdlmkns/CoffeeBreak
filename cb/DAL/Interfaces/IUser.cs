@@ -15,5 +15,6 @@ namespace cb.DAL.Interfaces
         void ChangeUserPasswordById(int userid, string newpassword);
         bool AuthUser(string username, string password);
         int GetUserIdByUsername(string username);
+        List<User> GetFriendsByUserId(int id);
     }
 }

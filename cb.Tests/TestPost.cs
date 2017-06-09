@@ -1,4 +1,5 @@
-﻿using cb.DAL.Contexts;
+﻿using System.Collections.Generic;
+using cb.DAL.Contexts;
 using cb.DAL.Repositories;
 using cb.Enums;
 using cb.Models;
@@ -36,6 +37,17 @@ namespace cb.Tests
             var post = pr.GetPostById(2);
 
             Assert.IsNotNull(post);
+        }
+
+        [TestMethod]
+        public void TestGetTrending()
+        {
+            var context = new PostSqlContext();
+            var pr = new PostRepository(context);
+
+            List<Post> posts = pr.GetTrendingPosts(0);
+
+            Assert.AreEqual(4, posts[0].Id);
         }
     }
 }
