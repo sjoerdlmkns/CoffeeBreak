@@ -34,9 +34,9 @@
             <div class="navbar-collapse collapse">
 
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Friends", "", "")</li>
+                    <li>@Html.ActionLink("Friends", "Index", "Friends")</li>
                     <li>@Html.ActionLink("Messages", "", "")</li>
-                    <li>@Html.ActionLink("Profile", "", "")</li>
+                    <li><a href="/User/Userprofile/@Session["LoggedInUser"]" style="text-decoration: none">Profile</a></li>
                     <li>@Html.ActionLink("Upload", "NewPost", "Post")</li>
                     <li>@Html.ActionLink("Logout", "Logout", "Login")</li>
                 </ul>

@@ -14,7 +14,7 @@
                 <div class="panel panel-default">
                     <img src="data:image/jpeg;base64,@ViewBag.post.Image" width="100%"/>
                 </div>
-                <p>@ViewBag.post.Score beans - 11 comments</p>
+                <p>@ViewBag.post.Score beans <button type="button" class="btn btn-primary btn-xs" onclick="window.location.href='/Post/LikePost/@ViewBag.Post.Id'">+</button> - @ViewBag.post.Comments.Count comments -  By <a href="/User/UserProfile/@ViewBag.post.User.Id">@ViewBag.Post.User.Username</a></p>
       
         </div>
         <div class="col-sm-4"></div>

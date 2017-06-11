@@ -16,16 +16,8 @@ namespace cb.Controllers
             PostSqlContext psc = new PostSqlContext();
             PostRepository pr = new PostRepository(psc);
 
-            if (Session["LoggedInUser"] == null)
-            {
                 List<Post> posts = pr.GetAllPost();
                 ViewBag.posts = posts;
-            }
-            else
-            {
-                List<Post> posts = pr.GetTrendingPosts(Convert.ToInt32(Session["LoggedInUser"]));
-                ViewBag.posts = posts;
-            }  
 
             return View();
         }

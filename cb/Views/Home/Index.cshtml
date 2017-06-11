@@ -15,7 +15,7 @@
                     <img src="data:image/jpeg;base64,@post.Image" width="100%"/>
                 </a>
             </div>
-            <p>@post.Score beans - 11 comments</p>
+            <p>@post.Score beans - @post.Comments.Count comments - By <a href="/User/UserProfile/@post.User.Id">@post.User.Username</a></p>
         }
 
         </div>

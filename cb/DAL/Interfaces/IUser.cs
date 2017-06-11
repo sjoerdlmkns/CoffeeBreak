@@ -16,5 +16,8 @@ namespace cb.DAL.Interfaces
         bool AuthUser(string username, string password);
         int GetUserIdByUsername(string username);
         List<User> GetFriendsByUserId(int id);
+        void SendFriendRequest(int fromuserid, int touserid);
+        List<User> GetFriendRequestsByUserId(int id);
+        void AcceptFriendRequest(int useridone, int useridtwo);
     }
 }

@@ -1,13 +1,62 @@
-﻿<div class="row">
-    <div class="col-sm-6"><h2>@ViewBag.user.Username</h2></div>
-    <div class="col-sm-6"><h2>Posts by @ViewBag.user.Username</h2></div>
+﻿@using cb.Models
+<div class="row">
+    <div class="col-sm-4"><h2>@ViewBag.user.Username</h2></div>
+    <div class="col-sm-4"></div>
+    
+    @if (Convert.ToInt32(Session["LoggedInUser"]) == ViewBag.User.Id)
+    {
+        <div class="col-sm-4"><h2>My Posts</h2></div>
+    }
+    else
+    {
+        <div class="col-sm-4"><h2>Posts by @ViewBag.user.Username</h2></div>
+    }
 </div>
 
 
 <div class="row">
-    <div class="col-sm-6">
-        <img src="data:image/jpeg;base64,@ViewBag.user.Image">
+    <div class="col-sm-4">
+        <img src="data:image/jpeg;base64,@ViewBag.user.Image"><br/>
+
+        @if (Convert.ToInt32(Session["LoggedInUser"]) != ViewBag.User.Id && Session["LoggedInUser"] != null)
+        {
+            <form action="/User/SendFriendRequest/@ViewBag.User.Id" enctype="multipart/form-data" method="GET">
+                <button type="submit" class="btn btn-primary">Add Friend</button>
+            </form>
+        }
+        
+        <h2>Stats</h2>
+        <p>Amount of posts: <b>@ViewBag.Posts.Count</b></p>
+        <p>Total amount of beans: <b>@ViewBag.TotalScore</b></p>
+
+        @if (Convert.ToInt32(Session["LoggedInUser"]) == ViewBag.User.Id)
+        {
+            <h2>Change Password</h2>
+            <div class="input-group">
+                <form action="/User/ChangePassword" enctype="multipart/form-data" method="POST">
+                    <input type="text" name="newpassword" class="form-control">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="submit">Update</button>
+                </span>
+                </form>
+            </div>
+        }
+
     </div>
-    <div class="col-sm-6">
+
+    <div class="col-sm-4"></div>
+
+    <div class="col-sm-4">
+        @foreach (Post post in ViewBag.posts)
+        {
+            <h2>@post.Titel</h2>
+            <div class="panel panel-default">
+                <a href="/Post/PostPage?id=@post.Id">
+                    <img src="data:image/jpeg;base64,@post.Image" width="100%"/>
+                </a>
+            </div>
+            <p>@post.Score beans - @post.Comments.Count comments - By <a href="/User/UserProfile/@post.User.Id">@post.User.Username</a></p>
+        }
+
     </div>
 </div>

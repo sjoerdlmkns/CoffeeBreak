@@ -44,5 +44,24 @@ namespace cb.DAL.Repositories
             return _context.GetFriendsByUserId(id);
         }
 
+        public void ChangeUserPasswordById(int userid, string newpassword)
+        {
+            _context.ChangeUserPasswordById(userid, newpassword);
+        }
+
+        public void SendFriendRequest(int fromuserid, int touserid)
+        {
+            _context.SendFriendRequest(fromuserid, touserid);
+        }
+
+        public List<User> GetFriendRequestsByUserId(int id)
+        {
+            return _context.GetFriendRequestsByUserId(id);
+        }
+
+        public void AcceptFriendRequest(int useridone, int useridtwo)
+        {
+            _context.AcceptFriendRequest(useridone,useridtwo);
+        }
     }
 }

@@ -38,5 +38,10 @@ namespace cb.DAL.Repositories
         {
             return _context.GetPostsByUserId(userid);
         }
+
+        public void LikePost(int postid, int userid)
+        {
+            _context.LikePost(postid, userid);
+        }
     }
 }

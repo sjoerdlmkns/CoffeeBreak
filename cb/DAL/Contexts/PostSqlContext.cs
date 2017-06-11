@@ -105,7 +105,6 @@ namespace cb.DAL.Contexts
 
                         User user = ur.GetGebruikerById(reader.GetInt32(2));
 
-
                         returnPost = new Post(
                             reader.GetInt32(0), //ID
                             user, //User
@@ -237,6 +236,29 @@ namespace cb.DAL.Contexts
             }
 
             return posts;
+        }
+
+        public void LikePost(int postid, int userid)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(Env.ConnectionString))
+                {
+                    con.Open();
+                    var cmd = new SqlCommand("spLikePost", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@userid", userid);
+                    cmd.Parameters.AddWithValue("@postid",postid);
+
+                    cmd.ExecuteNonQuery();
+
+                    con.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

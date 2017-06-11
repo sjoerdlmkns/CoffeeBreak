@@ -97,5 +97,16 @@ namespace cb.Controllers
 
             return View("~/Views/Post/PostPage.cshtml");
         }
+
+        [HttpGet]
+        public ActionResult LikePost(int id)
+        {
+            PostSqlContext pcontext = new PostSqlContext();
+            PostRepository pr = new PostRepository(pcontext);
+
+            pr.LikePost(id, Convert.ToInt32(Session["LoggedInUser"]));
+
+            return RedirectToAction("PostPage", new { id});
+        }
     }
 }

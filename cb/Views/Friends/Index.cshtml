@@ -1,0 +1,41 @@
+﻿@using cb.Models
+<div class="row">
+    <div class="col-sm-4"><h2>My Friends</h2></div>
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4"><h2>Friend Requests</h2></div>
+</div>
+
+<div class="row">
+    <div class="col-sm-4">
+        <table class="table">
+            <tbody>
+            @foreach (User user in ViewBag.friends)
+            {
+                <tr>
+                    <td>@user.Username</td>
+                    <td><button type="button" class="btn btn-danger">Remove</button></td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+        <table class="table">
+        <tbody>
+        @foreach (User user in ViewBag.friendrequests)
+        {
+            <tr>
+                
+                <td>@user.Username</td>
+                <form action="/User/AcceptFriendRequest/@user.Id" method="get">
+                <td><button type="submit" class="btn btn-success">Accept</button></td>
+                </form>
+
+                <td><button type="button" class="btn btn-danger">Decline</button></td>
+            </tr>
+        }
+        </tbody>
+        </table>
+    </div>
+</div>
