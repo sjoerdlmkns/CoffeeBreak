@@ -33,5 +33,10 @@ namespace cb.DAL.Repositories
         {
             return _context.GetTrendingPosts(userid);
         }
+
+        public List<Post> GetPostsByUserId(int userid)
+        {
+            return _context.GetPostsByUserId(userid);
+        }
     }
 }

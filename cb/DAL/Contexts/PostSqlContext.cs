@@ -67,6 +67,12 @@ namespace cb.DAL.Contexts
                             reader.GetInt32(4), //Score
                             reader.GetString(6)); //image
 
+                        //Get Comments by posts
+                        CommentSqlContext ccontext = new CommentSqlContext();
+                        CommentRepository cp = new CommentRepository(ccontext);
+
+                        post.Comments = cp.GetCommentsByPostId(post.Id);
+
                         returnPostList.Add(post);
                     }
                     con.Close();
@@ -108,10 +114,64 @@ namespace cb.DAL.Contexts
                             reader.GetDateTime(3), //Creatindate
                             reader.GetInt32(4), //Score
                             reader.GetString(6));
+
+                        //Get Comments by posts
+                        CommentSqlContext ccontext = new CommentSqlContext();
+                        CommentRepository cp = new CommentRepository(ccontext);
+
+                        returnPost.Comments = cp.GetCommentsByPostId(returnPost.Id);
                     }
                     con.Close();
                 }
                 return returnPost;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<Post> GetPostsByUserId(int userid)
+        {
+            List<Post> returnPostList = new List<Post>();
+
+            try
+            {
+                using (var con = new SqlConnection(Env.ConnectionString))
+                {
+                    var query = "SELECT * FROM Post WHERE userid =@id";
+                    var cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@id", userid);
+                    con.Open();
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        //Get User by id
+                        UserSqlContext context = new UserSqlContext();
+                        UserRepository ur = new UserRepository(context);
+
+                        User user = ur.GetGebruikerById(reader.GetInt32(2));
+
+                        Post post = new Post(
+                            reader.GetInt32(0), //ID
+                            user, //User
+                            reader.GetString(1), //Titel
+                            Category.Classic, //Category
+                            reader.GetDateTime(3), //Creatindate
+                            reader.GetInt32(4), //Score
+                            reader.GetString(6)); //image
+
+                        //Get Comments by posts
+                        CommentSqlContext ccontext = new CommentSqlContext();
+                        CommentRepository cp = new CommentRepository(ccontext);
+
+                        post.Comments = cp.GetCommentsByPostId(post.Id);
+
+                        returnPostList.Add(post);
+                    }
+                    con.Close();
+                }
+                return returnPostList;
             }
             catch (Exception ex)
             {

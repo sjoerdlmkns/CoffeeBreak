@@ -13,5 +13,6 @@ namespace cb.DAL.Interfaces
         Post GetPostById(int postid);
         List<Post> GetAllPosts();
         List<Post> GetTrendingPosts(int userid);
+        List<Post> GetPostsByUserId(int userid);
     }
 }

@@ -74,7 +74,7 @@ namespace cb.DAL.Contexts
             {
                 using (var con = new SqlConnection(Env.ConnectionString))
                 {
-                    var query = "SELECT u.id, u.username, u.ismanager, u.gender FROM [User] u";
+                    var query = "SELECT u.id, u.username, u.ismanager, u.gender, u.image FROM [User] u";
                     var cmd = new SqlCommand(query, con);
                     con.Open();
                     var reader = cmd.ExecuteReader();
@@ -84,7 +84,8 @@ namespace cb.DAL.Contexts
                             reader.GetInt32(0), //ID
                             reader.GetString(1), //Username
                             Convert.ToBoolean(reader.GetInt32(2)), //IsManager
-                            (Gender)Enum.Parse(typeof(Gender), reader.GetString(3))); //Gender
+                            (Gender)Enum.Parse(typeof(Gender), reader.GetString(3)), //Gender
+                            reader.GetString(4)); //Image
 
                         returnUserList.Add(user);
                     }
@@ -137,7 +138,7 @@ namespace cb.DAL.Contexts
             {
                 using (var con = new SqlConnection(Env.ConnectionString))
                 {
-                    var query = "SELECT u.id, u.username, u.ismanager, u.gender FROM [User] u where u.id = @id";
+                    var query = "SELECT u.id, u.username, u.ismanager, u.gender, u.image FROM [User] u where u.id = @id";
                     var cmd = new SqlCommand(query, con);
                     cmd.Parameters.AddWithValue("@id", userid);
                     con.Open();
@@ -145,10 +146,11 @@ namespace cb.DAL.Contexts
                     while (reader.Read())
                     {
                          returnUser = new User(
-                            reader.GetInt32(0), //ID
-                            reader.GetString(1), //Username
-                            Convert.ToBoolean(reader.GetInt32(2)), //IsManager
-                            (Gender) Enum.Parse(typeof(Gender), reader.GetString(3))); //Gender
+                             reader.GetInt32(0), //ID
+                             reader.GetString(1), //Username
+                             Convert.ToBoolean(reader.GetInt32(2)), //IsManager
+                             (Gender)Enum.Parse(typeof(Gender), reader.GetString(3)), //Gender
+                             reader.GetString(4)); //Image
                     }
                     con.Close();
                 }

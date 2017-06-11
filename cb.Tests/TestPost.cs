@@ -17,14 +17,9 @@ namespace cb.Tests
             var pr = new PostRepository(context);
 
 
-            UserSqlContext usercontext = new UserSqlContext();
-            UserRepository ur = new UserRepository(usercontext);
+            List<Post> posts = pr.GetAllPost();
+        
 
-            User user = ur.GetGebruikerById(1);
-
-
-            //Post p = new Post(user,"Me irl",Category.Classic);
-            //pr.CreatePost(p);
         }
 
         [TestMethod]

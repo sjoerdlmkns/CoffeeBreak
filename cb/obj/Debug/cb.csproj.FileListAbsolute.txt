@@ -64,3 +64,4 @@ c:\users\sjoerd\documents\visual studio 2017\Projects\cb\cb\bin\Microsoft.AI.Win
 c:\users\sjoerd\documents\visual studio 2017\Projects\cb\cb\bin\Microsoft.AI.Web.xml
 c:\users\sjoerd\documents\visual studio 2017\Projects\cb\cb\obj\Debug\cb.dll
 c:\users\sjoerd\documents\visual studio 2017\Projects\cb\cb\obj\Debug\cb.pdb
+C:\Users\Sjoerd\Documents\Visual Studio 2017\Projects\cb\cb\obj\Debug\cb.csprojResolveAssemblyReference.cache

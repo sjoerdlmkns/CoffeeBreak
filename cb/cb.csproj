@@ -146,6 +146,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\SignUpController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAL\Contexts\CommentSqlContext.cs" />
     <Compile Include="DAL\Contexts\MessageSqlContext.cs" />
     <Compile Include="DAL\Contexts\PostSqlContext.cs" />
@@ -213,6 +214,7 @@
     <Content Include="Views\SignUp\Index.cshtml" />
     <Content Include="Views\Post\NewPost.cshtml" />
     <Content Include="Views\Post\PostPage.cshtml" />
+    <Content Include="Views\User\UserProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
