@@ -108,5 +108,39 @@ namespace cb.Controllers
 
             return RedirectToAction("PostPage", new { id});
         }
+
+        [HttpPost]
+        public ActionResult AddCommentToPost(FormCollection form)
+        {
+            CommentSqlContext ccontext = new CommentSqlContext();
+            CommentRepository cr = new CommentRepository(ccontext);
+
+            UserSqlContext ucontext = new UserSqlContext();
+            UserRepository ur = new UserRepository(ucontext);
+
+            int postid = Convert.ToInt32(form["postid"]);
+
+            var user = ur.GetGebruikerById(Convert.ToInt32(Session["LoggedInUser"]));
+
+            var comment = new Comment(
+                user,
+                form["message"]
+                );
+
+            cr.AddCommentToPost(postid, comment);
+
+            return Redirect(ControllerContext.HttpContext.Request.UrlReferrer.ToString());
+        }
+
+        [HttpGet]
+        public ActionResult DeleteComment(int id)
+        {
+            CommentSqlContext pcontext = new CommentSqlContext();
+            CommentRepository pr = new CommentRepository(pcontext);
+
+            pr.DeleteComment(id);
+
+            return Redirect(ControllerContext.HttpContext.Request.UrlReferrer.ToString());
+        }
     }
 }

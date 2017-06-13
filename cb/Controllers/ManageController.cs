@@ -19,26 +19,36 @@ namespace cb.Controllers
 
         public ActionResult Overview()
         {
-            MessageSqlContext mcontext = new MessageSqlContext();
-            MessageRepository mr = new MessageRepository(mcontext);
-
-            List<string> badWordList = mr.GetAllBadWords();
-            ViewBag.badWords = badWordList;
-
             UserSqlContext ucontext = new UserSqlContext();
             UserRepository ur = new UserRepository(ucontext);
 
-            List<User> userlist = ur.GetAllUsers();
-            ViewBag.users = userlist;
+            User currentuser = ur.GetGebruikerById(Convert.ToInt32(Session["LoggedInUser"]));
+
+            if (currentuser.IsManager != true)
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
 
-            PostSqlContext pcontext = new PostSqlContext();
-            PostRepository pr = new PostRepository(pcontext);
+                MessageSqlContext mcontext = new MessageSqlContext();
+                MessageRepository mr = new MessageRepository(mcontext);
 
-            List<Post> postlist = pr.GetAllPost();
-            ViewBag.posts = postlist;
+                List<string> badWordList = mr.GetAllBadWords();
+                ViewBag.badWords = badWordList;
 
-            return View("~/Views/Manage/Overview.cshtml");
+
+
+                List<User> userlist = ur.GetAllUsers();
+                ViewBag.users = userlist;
+
+
+                PostSqlContext pcontext = new PostSqlContext();
+                PostRepository pr = new PostRepository(pcontext);
+
+                List<Post> postlist = pr.GetAllPost();
+                ViewBag.posts = postlist;
+
+                return View("~/Views/Manage/Overview.cshtml");
         }
 
         [HttpPost]

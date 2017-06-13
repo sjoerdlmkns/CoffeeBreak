@@ -16,24 +16,55 @@ namespace cb.Controllers
             PostSqlContext psc = new PostSqlContext();
             PostRepository pr = new PostRepository(psc);
 
-                List<Post> posts = pr.GetAllPost();
+                List<Post> posts = new List<Post>();
+                posts = pr.GetAllPost();
                 ViewBag.posts = posts;
 
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Fresh()
         {
-            
+            PostSqlContext psc = new PostSqlContext();
+            PostRepository pr = new PostRepository(psc);
 
-            return View();
+            List<Post> posts = new List<Post>();
+            posts = pr.GetFreshPosts();
+            ViewBag.posts = posts;
+
+            return View("~/Views/Home/Index.cshtml");
         }
 
-        public ActionResult Contact()
+        public ActionResult Hot()
         {
-           
+            PostSqlContext psc = new PostSqlContext();
+            PostRepository pr = new PostRepository(psc);
 
-            return View();
+            List<Post> posts = new List<Post>();
+            posts = pr.GetHotPosts();
+            ViewBag.posts = posts;
+
+            return View("~/Views/Home/Index.cshtml");
+        }
+
+        public ActionResult Trending()
+        {
+            PostSqlContext psc = new PostSqlContext();
+            PostRepository pr = new PostRepository(psc);
+
+            List<Post> posts = new List<Post>();
+            posts = pr.GetAllPost();
+
+            if (Session["LoggedInUser"] != null)
+            {
+                int userid = Convert.ToInt32(Session["LoggedInUser"]);
+                posts = pr.GetTrendingPosts(userid);
+            }
+
+            ViewBag.posts = posts;
+
+
+            return View("~/Views/Home/Index.cshtml");
         }
     }
 }

@@ -19,6 +19,13 @@ namespace cb.Models
             Text = text;
         }
 
+        public Message(User sender, User receiver, string text)
+        {
+            Sender = sender;
+            Receiver = receiver;
+            Text = text;
+        }
+
         public static string FilterBadWords(string s)
         {
             string message = s;

@@ -93,7 +93,7 @@ namespace cb.DAL.Contexts
                 command.Parameters.AddWithValue("@password", user.Password);
                 command.Parameters.AddWithValue("@ismanager", 0);
                 command.Parameters.AddWithValue("@gender", user.Gender.ToString());
-                command.Parameters.AddWithValue("@image", "testimagestring");
+                command.Parameters.AddWithValue("@image", user.Image);
                 command.Parameters.AddWithValue("@isdeleted", 0);
 
                 command.ExecuteNonQuery();

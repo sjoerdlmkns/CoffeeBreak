@@ -7,18 +7,50 @@
     <div class="row">
         <div class="col-sm-3"></div>
         <div class="col-sm-4">
-        @foreach (Post post in ViewBag.posts)
-        {
-            <h2>@post.Titel</h2>
-            <div class="panel panel-default">
-                <a href="/Post/PostPage?id=@post.Id">
-                    <img src="data:image/jpeg;base64,@post.Image" width="100%"/>
-                </a>
-            </div>
-            <p>@post.Score beans - @post.Comments.Count comments - By <a href="/User/UserProfile/@post.User.Id">@post.User.Username</a></p>
-        }
+            @if (ViewBag.posts != null)
+            {
+                foreach (Post post in ViewBag.posts)
+                 {
+                     <h2>@post.Titel</h2>
+                     <div class="panel panel-default">
+                         <a href="/Post/PostPage?id=@post.Id">
+                             <img src="data:image/jpeg;base64,@post.Image" width="100%"/>
+                         </a>
+                     </div>
+                     <p>@post.Score beans - @post.Comments.Count comments - By <a href="/User/UserProfile/@post.User.Id">@post.User.Username</a>
+                     </p>
+                 }
+            }
 
         </div>
-        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+            <span class="pull-right">
+                <!-- Sidebar -->
+                <div id="sidebar-wrapper">
+                    <nav id="spy">
+                        <ul class="sidebar-nav nav">
+                            <li class="sidebar-brand">
+                                <a href="/home/index"><span class="fa fa-home solo">All</span></a>
+                            </li>
+                            <li>
+                                <a href="/home/trending" data-scroll>
+                                    <span class="fa fa-anchor solo">Trending</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/home/fresh" data-scroll>
+                                    <span class="fa fa-anchor solo">Fresh</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/home/hot" data-scroll>
+                                    <span class="fa fa-anchor solo">Hot</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </span>
+        </div>
     </div>
 </div>

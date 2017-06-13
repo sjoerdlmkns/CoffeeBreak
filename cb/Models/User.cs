@@ -27,11 +27,12 @@ namespace cb.Models
             Image = image;
         }
 
-        public User(string username, string password, Gender gender)
+        public User(string username, string password, Gender gender, string image)
         {
             Username = username;
             Password = password; 
             Gender = gender;
+            Image = image;
         }
 
         public User(int id)

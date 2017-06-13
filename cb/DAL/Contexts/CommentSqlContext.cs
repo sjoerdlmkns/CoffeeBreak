@@ -18,7 +18,7 @@ namespace cb.DAL.Contexts
                 SqlConnection con = new SqlConnection(Env.ConnectionString);
 
                 con.Open();
-                var cmdString = "INSERT INTO Comment (postid, userid ,comment) VALUES (@postid, @userid, @comment)";
+                var cmdString = "INSERT INTO Comment (postid, userid ,comment, score) VALUES (@postid, @userid, @comment, 0)";
                 var command = new SqlCommand(cmdString, con);
                 command.Parameters.AddWithValue("@postid", postid);
                 command.Parameters.AddWithValue("@userid", comment.User.Id);
@@ -35,7 +35,22 @@ namespace cb.DAL.Contexts
 
         public void DeleteComment(int commentid)
         {
-            throw new NotImplementedException();
+            try
+            {
+                SqlConnection con = new SqlConnection(Env.ConnectionString);
+
+                con.Open();
+                var cmdString = "DELETE FROM Comment WHERE id = @id";
+                var command = new SqlCommand(cmdString, con);
+                command.Parameters.AddWithValue("@id", commentid);
+
+                command.ExecuteNonQuery();
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public List<Comment> GetAllCommentsByPostId(int postid)

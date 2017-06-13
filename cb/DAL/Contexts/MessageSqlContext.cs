@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using cb.Dal;
 using cb.DAL.Interfaces;
+using cb.DAL.Repositories;
 using cb.Enums;
 using cb.Models;
 
@@ -32,7 +33,24 @@ namespace cb.DAL.Contexts
 
         public void CreateMessage(Message message)
         {
-            throw new NotImplementedException();
+            try
+            {
+                SqlConnection con = new SqlConnection(Env.ConnectionString);
+
+                con.Open();
+                var cmdString = "INSERT INTO [Message] (senderid, recieverid, [message]) VALUES (@senderid, @recieverid, @message);";
+                var command = new SqlCommand(cmdString, con);
+                command.Parameters.AddWithValue("@senderid", message.Sender.Id);
+                command.Parameters.AddWithValue("@recieverid", message.Receiver.Id);
+                command.Parameters.AddWithValue("@message", message.Text);
+
+                command.ExecuteNonQuery();
+                con.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public List<string> GetAllBadWords()
@@ -62,7 +80,43 @@ namespace cb.DAL.Contexts
 
         public List<Message> GetAllMessagesByUserIds(int useridone, int useridtwo)
         {
-            throw new NotImplementedException();
+            List<Message> returnMessageList = new List<Message>();
+            try
+            {
+                UserSqlContext ucontext = new UserSqlContext();
+                UserRepository ur = new UserRepository(ucontext);
+
+                using (var con = new SqlConnection(Env.ConnectionString))
+                {
+                    var query = "SELECT * FROM [Message] WHERE senderid = @useridone OR senderid = @useridtwo AND recieverid = @useridone OR recieverid = @useridtwo";
+                    var cmd = new SqlCommand(query, con);
+                    cmd.Parameters.AddWithValue("@useridone", useridone);
+                    cmd.Parameters.AddWithValue("@useridtwo", useridtwo);
+                    con.Open();
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        User sender = ur.GetGebruikerById(reader.GetInt32(1));
+                        User reciever = ur.GetGebruikerById(reader.GetInt32(2));
+
+                        Message message = new Message(
+                            reader.GetInt32(0), //Id
+                            sender,
+                            reciever,
+                            reader.GetString(3) // Message
+                           );
+
+                        returnMessageList.Add(message);
+                    }
+                    con.Close();
+                }
+                return returnMessageList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public Message GetMessageById(int messageid)

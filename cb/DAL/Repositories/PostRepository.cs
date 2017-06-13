@@ -29,6 +29,16 @@ namespace cb.DAL.Repositories
             return _context.GetAllPosts();
         }
 
+        public List<Post> GetFreshPosts()
+        {
+            return _context.GetFreshPosts();
+        }
+
+        public List<Post> GetHotPosts()
+        {
+            return _context.GetHotPosts();
+        }
+
         public List<Post> GetTrendingPosts(int userid)
         {
             return _context.GetTrendingPosts(userid);

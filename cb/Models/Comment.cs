@@ -14,5 +14,12 @@
             Message = message;
             Score = score;
         }
+
+
+        public Comment(User user, string message)
+        {
+            User = user;
+            Message = message;
+        }
     }
 }

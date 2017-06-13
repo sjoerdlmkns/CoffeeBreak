@@ -22,5 +22,10 @@ namespace cb.DAL.Repositories
         {
             return _context.GetAllCommentsByPostId(postid);
         }
+
+        public void DeleteComment(int commentid)
+        {
+            _context.DeleteComment(commentid);
+        }
     }
 }

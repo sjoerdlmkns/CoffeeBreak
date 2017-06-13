@@ -1,0 +1,52 @@
+﻿@using cb.Models
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Friends</h2>
+        <table class="table">
+            <tr>
+                <th>Naam</th>
+                <th>Chat</th>
+            </tr>
+
+            @foreach (User user in ViewBag.friends)
+            {
+                <tr>
+                    <td>@user.Username</td> 
+                    <td>
+                        <a href="/Message/OpenChat/@user.Id" class="btn btn-info" role="button">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+        <div class="col-md-8">
+            <h2>Messages</h2>
+            <textarea class="form-control" rows="20" disabled>
+@if (ViewBag.messages != null)
+{
+    foreach (Message message in ViewBag.messages)
+    {
+        @(message.Sender.Username + ": " + message.Text)
+        @Html.Raw("&#13;&#10;");
+    }
+}
+</textarea>
+            
+            <div class="input-group">
+                <br/>
+                <div class="input-group">
+                    <form action="/Message/NewMessage" method="post">
+                        <input type="hidden" name="recieverid" value="@ViewBag.recieverid">
+                        <input name="message" width="300px" type="text" class="form-control" value="" placeholder="Bericht..."/>
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-default" type="button">Versturen</button>
+                        </span>
+                    </form>
+                </div>
+            </div>
+        
+        </div>
+</div>

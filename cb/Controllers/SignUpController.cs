@@ -25,11 +25,20 @@ namespace cb.Controllers
         [HttpPost]
         public ActionResult CreateUser(FormCollection form)
         {
+            HttpPostedFileBase file = Request.Files["image"];
+
+
+            string fileName = file.FileName;
+            string fileContentType = file.ContentType;
+            byte[] fileBytes = new byte[file.ContentLength];
+            file.InputStream.Read(fileBytes, 0, Convert.ToInt32(file.ContentLength));
+            string image = Convert.ToBase64String(fileBytes);
 
             var newuser = new User(
                 form["username"],
                 form["password"],
-                Gender.Male);
+                Gender.Male,
+                image);
 
             UserSqlContext context = new UserSqlContext();
             UserRepository ur = new UserRepository(context);

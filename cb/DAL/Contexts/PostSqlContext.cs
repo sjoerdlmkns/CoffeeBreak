@@ -70,6 +70,99 @@ namespace cb.DAL.Contexts
                         //Get Comments by posts
                         CommentSqlContext ccontext = new CommentSqlContext();
                         CommentRepository cp = new CommentRepository(ccontext);
+                        post.Comments = cp.GetCommentsByPostId(post.Id);
+
+                        returnPostList.Add(post);
+                    }
+                    con.Close();
+                }
+                return returnPostList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<Post> GetFreshPosts()
+        {
+            List<Post> returnPostList = new List<Post>();
+
+            try
+            {
+                using (var con = new SqlConnection(Env.ConnectionString))
+                {
+                    var query = "SELECT * FROM Post where creationdate = GETDATE() ORDER BY creationdate";
+                    var cmd = new SqlCommand(query, con);
+                    con.Open();
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        //Get User by id
+                        UserSqlContext context = new UserSqlContext();
+                        UserRepository ur = new UserRepository(context);
+
+                        User user = ur.GetGebruikerById(reader.GetInt32(2));
+
+                        Post post = new Post(
+                            reader.GetInt32(0), //ID
+                            user, //User
+                            reader.GetString(1), //Titel
+                            Category.Classic, //Category
+                            reader.GetDateTime(3), //Creatindate
+                            reader.GetInt32(4), //Score
+                            reader.GetString(6)); //image
+
+                        //Get Comments by posts
+                        CommentSqlContext ccontext = new CommentSqlContext();
+                        CommentRepository cp = new CommentRepository(ccontext);
+
+                        post.Comments = cp.GetCommentsByPostId(post.Id);
+
+                        returnPostList.Add(post);
+                    }
+                    con.Close();
+                }
+                return returnPostList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<Post> GetHotPosts()
+        {
+            List<Post> returnPostList = new List<Post>();
+
+            try
+            {
+                using (var con = new SqlConnection(Env.ConnectionString))
+                {
+                    var query = "SELECT * FROM Post order by score desc";
+                    var cmd = new SqlCommand(query, con);
+                    con.Open();
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        //Get User by id
+                        UserSqlContext context = new UserSqlContext();
+                        UserRepository ur = new UserRepository(context);
+
+                        User user = ur.GetGebruikerById(reader.GetInt32(2));
+
+                        Post post = new Post(
+                            reader.GetInt32(0), //ID
+                            user, //User
+                            reader.GetString(1), //Titel
+                            Category.Classic, //Category
+                            reader.GetDateTime(3), //Creatindate
+                            reader.GetInt32(4), //Score
+                            reader.GetString(6)); //image
+
+                        //Get Comments by posts
+                        CommentSqlContext ccontext = new CommentSqlContext();
+                        CommentRepository cp = new CommentRepository(ccontext);
 
                         post.Comments = cp.GetCommentsByPostId(post.Id);
 

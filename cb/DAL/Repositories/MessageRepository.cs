@@ -28,5 +28,14 @@ namespace cb.DAL.Repositories
             _context.RemoveBadWord(word);
         }
 
+        public List<Message> GetAllMessagesByUserIds(int useridone, int useridtwo)
+        {
+           return _context.GetAllMessagesByUserIds(useridone, useridtwo);
+        }
+
+        public void CreateMessage(Message message)
+        {
+            _context.CreateMessage(message);
+        }
     }
 }

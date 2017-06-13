@@ -24,6 +24,7 @@ namespace cb.Models
             CreationDate = creationdate;
             Score = score;
             Image = image;
+            Comments = new List<Comment>();
         }
 
         public Post(User user, string titel, Category category, string image)
