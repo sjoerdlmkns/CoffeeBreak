@@ -51,7 +51,7 @@ namespace cb.DAL.Contexts
                     con.Open();
                     var reader = cmd.ExecuteReader();
                     while (reader.Read())
-                    {
+                    { 
                         //Get User by id
                         UserSqlContext context = new UserSqlContext();
                         UserRepository ur = new UserRepository(context);

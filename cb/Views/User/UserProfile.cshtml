@@ -16,7 +16,7 @@
 
 <div class="row">
     <div class="col-sm-4">
-        <img src="data:image/jpeg;base64,@ViewBag.user.Image"><br/>
+        <img src="data:image/jpeg;base64,@ViewBag.user.Image"  width="300"><br/>
 
         @if (Convert.ToInt32(Session["LoggedInUser"]) != ViewBag.User.Id && Session["LoggedInUser"] != null)
         {
